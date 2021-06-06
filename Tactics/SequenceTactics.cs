@@ -18,6 +18,11 @@ namespace RockPaperScissors.Tactics
 
         #region メンバ変数（フィールド変数）
         /// <summary>
+        /// 戦術名
+        /// </summary>
+        public string TacticsName => "シーケンス";
+
+        /// <summary>
         /// シーケンス値
         /// </summary>
         private int _sequence;

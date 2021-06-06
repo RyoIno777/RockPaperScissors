@@ -54,10 +54,12 @@ namespace RockPaperScissors
 
             // 指定された参加人数になるまでロボットを参加させる
             int nowPlayerNumber = mainGame.GetParticipationNumber();
+            var rnd = new Random();
             for (int i = nowPlayerNumber; i < nowPlayerNumber + sanka; i ++)
             {
                 var robot = new Robot(string.Format("ロボット{0}", i + 1), null);
-                switch(i)
+
+                switch(rnd.Next(0, 6))
                 {
                     case 0:
                         // ノーマルタイプ

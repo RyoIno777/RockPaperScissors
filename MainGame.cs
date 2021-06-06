@@ -167,7 +167,8 @@ namespace RockPaperScissors
             // 参加者全員分の表示
             _participationList.ForEach(player =>
             {
-                CommonLogic.DispMsg(false, string.Format("【{0}】さんの戦績", player.Name), ConsoleColor.Yellow);
+                string tacticsName = player is Robot ? ((Robot)player).TacticsName : "";
+                CommonLogic.DispMsg(false, string.Format("【{0}】さんの戦績 {1}", player.Name, tacticsName), ConsoleColor.Yellow);
                 int index = 0;
                 player.GetHistories().ForEach(history =>
                 {
