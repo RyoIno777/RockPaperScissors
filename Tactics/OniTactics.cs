@@ -16,6 +16,13 @@ namespace RockPaperScissors.Tactics
     public class OniTactics : ITactics
     {
 
+        #region メンバ変数（フィールド変数）
+        /// <summary>
+        /// 戦術名
+        /// </summary>
+        public string TacticsName => "おに";
+        #endregion
+
         #region メソッド
         /// <summary>
         /// 出す手を決定します。
