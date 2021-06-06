@@ -39,6 +39,23 @@ namespace RockPaperScissors.Player
         }
         #endregion
 
+        #region プロパティ
+        /// <summary>
+        /// 戦術名のプロパティです。
+        /// </summary>
+        public string TacticsName
+        {
+            get
+            {
+                if (this._tactics.Count > 0)
+                {
+                    return this._tactics[0].TacticsName;
+                }
+                return "";
+            }
+        }
+        #endregion
+
         #region メソッド
         /// <summary>
         /// 戦術クラスを追加します。

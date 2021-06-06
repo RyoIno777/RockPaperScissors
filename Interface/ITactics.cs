@@ -15,6 +15,16 @@ namespace RockPaperScissors.Interface
     interface ITactics
     {
 
+        #region プロパティ
+        /// <summary>
+        /// 戦術名
+        /// </summary>
+        string TacticsName
+        {
+            get;
+        }
+        #endregion
+
         #region メソッド
         /// <summary>
         /// 出す手を決定します。
