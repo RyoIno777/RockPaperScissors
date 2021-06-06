@@ -22,9 +22,13 @@ namespace RockPaperScissors.Tactics
         /// </summary>
         private int _sequence;
 
+        /// <summary>
+        /// 出す順番
+        /// </summary>
         private List<HandEnum> _listHands;
         #endregion
 
+        #region コンストラクタ
         /// <summary>
         /// 出す手の順番で初期化します。
         /// </summary>
@@ -33,6 +37,7 @@ namespace RockPaperScissors.Tactics
         {
             _listHands = new List<HandEnum>(hands);
         }
+        #endregion
 
         #region メソッド
         /// <summary>
