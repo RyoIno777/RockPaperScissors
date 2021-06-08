@@ -23,17 +23,17 @@ namespace RockPaperScissors
             int sanka = 0;
             while (true)
             {
-                string value = CommonLogic.InputValue("参加人数を入力してください。[1-9]");
+                string value = CommonLogic.InputValue("参加人数を入力してください。[1-99]");
                 try
                 {
                     sanka = int.Parse(value);
-                    if ((0 < sanka) && (sanka < 10))
+                    if ((0 < sanka) && (sanka < 100))
                     {
                         break;
                     }
                 }
                 catch { }
-                CommonLogic.DispError("1-9の数字で入力してください。");
+                CommonLogic.DispError("1-99の数字で入力してください。");
             }
             #endregion
 
