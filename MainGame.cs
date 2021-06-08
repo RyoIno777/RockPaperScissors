@@ -64,13 +64,13 @@ namespace RockPaperScissors
             // 行ったゲーム数（カウントしているが現在未使用）
             int loop = 0;
             // プレイユーザを登録ユーザからコピー
-            var listPlayer = new List<APlayer>(_participationList);
+            var _list = new List<APlayer>(_participationList);
             // あいこの判定
-            var drawCnt = 0;
+            bool isDraw = false;
 
             #region ゲームのメインループ
             // 最後の一人までゲームを続ける
-            while (listPlayer.Count > 1)
+            while (_list.Count > 1)
             {
 
                 #region 出す手を決める処理
@@ -80,11 +80,10 @@ namespace RockPaperScissors
                 // を人間とロボットの判定をしなくても実行できる
                 // APlayerクラスに抽象メソッドであるMakeUpHand()が定義され、
                 // Humanクラス、Robotクラスそれぞれで実装しているため
-                listPlayer.ForEach(player => player.SetHand(player.MakeUpHand(listPlayer)));
+                _list.ForEach(player => player.SetHand(player.MakeUpHand(_list)));
                 #endregion
 
-                #region じゃんけんかけごえ処理
-                if (drawCnt > 0)
+                if (isDraw)
                 {
                     // 前回のゲームがあいこの場合
                     CommonLogic.DispMsg(false, "あーーーいこで", ConsoleColor.Green);
@@ -98,38 +97,20 @@ namespace RockPaperScissors
                     Thread.Sleep(2000);
                     CommonLogic.DispMsg(true, "ぽん！", ConsoleColor.Cyan);
                 }
-                #endregion
-
-                #region あいこ救済処理
-                if (drawCnt > 1)
-                {
-                    // あいこが複数回続いた場合(グーとチョキに置換してしまう)
-                    listPlayer.ForEach(player => player.SetHand((HandEnum)new Random().Next(0, 2)));
-                }
-                #endregion
-
-                #region じゃんけんの手を出す処理
                 // 参加者すべての手を表示
-                listPlayer.ForEach(player => CommonLogic.DispMsg(false, string.Format("{0}：{1}", player.Name, player.Hand.ToString())));
+                _list.ForEach(player => CommonLogic.DispMsg(false, string.Format("{0}：{1}", player.Name, player.Hand.ToString())));
                 // 判定前の人数
-                int beforeCnt = listPlayer.Count();
-                listPlayer = this.Judgment(listPlayer);
+                int beforeCnt = _list.Count();
+                _list = this.Judgment(_list);
                 // 判定後の人数と比べて同じ場合はあいことする
-                if (beforeCnt == listPlayer.Count())
-                {
-                    // 引き分け回数を加算
-                    drawCnt++;
-                }
-                else
+                isDraw = beforeCnt == _list.Count();
+                if (!isDraw)
                 {
                     // 勝敗が決まった場合
                     Thread.Sleep(1000);
                     CommonLogic.DispMsg(true, "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆\n　勝ち残ったプレイヤー\n◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆", ConsoleColor.Yellow);
-                    this.DispPlayers(listPlayer);
-                    drawCnt = 0;
+                    this.DispPlayers(_list);
                 }
-                #endregion
-
                 // ゲーム数を加算
                 loop++;
                 Thread.Sleep(3000);
@@ -232,7 +213,6 @@ namespace RockPaperScissors
         /// <returns>勝者またはあいこのリスト</returns>
         private List<APlayer> Judgment(List<APlayer>list)
         {
-
             #region 処理用のリスト作成
             // グーを出したプレイヤー
             var g = list.FindAll(v => v.Hand == HandEnum.G);
@@ -245,9 +225,8 @@ namespace RockPaperScissors
             #region 判定処理
             // あいこの判定
             if (
-                // 全部が違う場合(リストが1件以上の場合は出された手である)
+                // 全部が違う場合
                 (g.Count > 0 && c.Count > 0 && p.Count > 0) ||
-                // 全体のリストとある手のリストサイズが同じ場合は全て同じ手が出されている
                 (list.Count == g.Count || list.Count == c.Count || list.Count == p.Count)
             )
             {
