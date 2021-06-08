@@ -18,16 +18,17 @@ namespace RockPaperScissors
         /// <param name="args">プログラム起動引数</param>
         static void Main(string[] args)
         {
+
             #region 参加人数の決定
             // 参加人数
             int sanka = 0;
             while (true)
             {
-                string value = CommonLogic.InputValue("参加人数を入力してください。[1-9]");
+                string value = CommonLogic.InputValue("参加人数を入力してください。[1-99]");
                 try
                 {
                     sanka = int.Parse(value);
-                    if ((0 < sanka) && (sanka < 10))
+                    if ((0 < sanka) && (sanka < 100))
                     {
                         break;
                     }
